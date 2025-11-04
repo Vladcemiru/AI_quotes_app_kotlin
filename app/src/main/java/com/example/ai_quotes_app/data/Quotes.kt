@@ -7,5 +7,7 @@ import androidx.room.PrimaryKey
 data class Quotes(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
+    val prompt: String,
+    val character: String,
     val quote: String
 )

@@ -2,5 +2,8 @@ package com.example.ai_quotes_app.data
 
 data class QuotesState (
     val quotes: List<Quotes> = emptyList(),
-            val quote: String = ""
+            val quote: String = "",
+            val prompt: String = "",
+            val character: String = "",
+            val sortType: SortType = SortType.QUOTE
 )
