@@ -1,7 +1,10 @@
 package com.example.ai_quotes_app.data
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.ai_quotes_app.data.api.APIrequest
+import com.example.ai_quotes_app.data.api.ApiClient
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -89,6 +92,51 @@ class QuotesViewModel(
             }
             is QuoteEvent.SortQuotes -> {
                 _sortType.value = event.sortType
+            }
+        }
+    }
+    fun apiCall(tone: String) {
+        val state = state.value
+        _state.update { it.copy(isLoading = true) }
+        var text = "Empty response"
+        viewModelScope.launch {
+            try {
+                val service = ApiClient.getService(openAIkey)
+
+                val finalPrompt = """
+                    Character: ${state.character}
+                    Tone: $tone
+                    Prompt: ${state.prompt}
+                """.trimIndent()
+
+                val response = service.getResponse(
+                    APIrequest(
+                        model = "gpt-5-nano",
+                        input = finalPrompt
+                    )
+                )
+
+                 text =
+                    response.output
+                        ?.firstOrNull { it.type == "message" }
+                        ?.content
+                        ?.firstOrNull { it.type == "output_text" }
+                        ?.text
+                        ?: "Empty response"
+
+                val quoteEntity = Quotes(
+                    prompt = state.prompt,
+                    character = state.character,
+                    quote = text
+                )
+                dao.upsertQuote(quoteEntity)
+            } catch (e: Exception) {
+                Log.e("API", "Error: ${e.message}")
+            }  finally {
+                onEvent(QuoteEvent.SetQuote(text))
+                _state.update { it.copy(isLoading = false) }
+                _state.update { it.copy(prompt = "") }
+
             }
         }
     }
