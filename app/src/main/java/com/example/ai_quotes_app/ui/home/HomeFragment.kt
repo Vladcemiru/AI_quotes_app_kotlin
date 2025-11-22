@@ -15,6 +15,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.RecordVoiceOver
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -64,7 +67,7 @@ class HomeFragment : Fragment() {
         composeView.setContent {
             MaterialTheme(colorScheme = DarkColors) {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxSize() .padding(top = 22.dp),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     HomeScreen(viewModel)
@@ -172,8 +175,8 @@ fun HeaderImages(    state: QuotesState,
 
             // CHARACTER
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = android.R.drawable.ic_menu_gallery),
+                Icon(
+                    imageVector = Icons.Default.Person,
                     contentDescription = "Character",
                     modifier = Modifier
                         .size(80.dp)
@@ -187,8 +190,8 @@ fun HeaderImages(    state: QuotesState,
 
             // TONE
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    painter = painterResource(id = android.R.drawable.ic_menu_camera),
+                Icon(
+                    imageVector = Icons.Default.RecordVoiceOver,
                     contentDescription = "Tone",
                     modifier = Modifier
                         .size(80.dp)
