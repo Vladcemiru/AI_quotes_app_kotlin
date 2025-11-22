@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,8 +15,10 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.RecordVoiceOver
@@ -95,7 +98,7 @@ fun HomeScreen(viewModel: QuotesViewModel) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(300.dp)
+                .height(400.dp)
         ) {
             QuoteCard(state)
         }
@@ -282,31 +285,41 @@ fun HeaderImages(    state: QuotesState,
 @Composable
 fun QuoteCard(state: QuotesState) {
     AnimatedVisibility(visible = state.quote.isNotBlank()) {
+
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(min = 150.dp)
                 .padding(vertical = 16.dp),
             colors = CardDefaults.cardColors(
-                containerColor = Color(0xFF22344D)  // dark navy
+                containerColor = Color(0xFF22344D)
             ),
             shape = RoundedCornerShape(20.dp)
         ) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(20.dp),
-                contentAlignment = Alignment.Center
+                    .padding(20.dp)
             ) {
-                Text(
-                    text = state.quote,
-                    color = Color.White,
-                    style = MaterialTheme.typography.bodyLarge
-                )
+
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(max = 300.dp)   // maximální výška pro dlouhé citáty
+                ) {
+                    item {
+                        Text(
+                            text = state.quote,
+                            color = Color.White,
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    }
+                }
             }
         }
     }
 }
+
+
 
 @Composable
 fun DropdownMenuList(

@@ -105,9 +105,9 @@ class QuotesViewModel(
                 val service = ApiClient.getService(openAIkey)
 
                 val finalPrompt = """
-                    Generate a quote based on the following parameters. Please answer just the quote.
-                    Character: ${state.character}
-                    Tone: $tone
+                    Generate a quote. Please answer just the quote.
+                    Get inspired by real quotes from ${state.character}
+                    add a $tone tone.
                     Context: ${state.prompt}
                 """.trimIndent()
 
