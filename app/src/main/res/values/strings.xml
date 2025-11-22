@@ -3,4 +3,11 @@
     <string name="title_home">AI Quotes</string>
     <string name="title_dashboard">History</string>
     <string name="title_notifications">Settings</string>
+    <string name="text_generate">Generate</string>
+    <string name="text_select_tone">Select Tone</string>
+    <string name="text_select_character">Select Character</string>
+    <string name="text_sad">Sad</string>
+    <string name="text_happy">Happy</string>
+    <string name="text_angry">Angry</string>
+    <string name="text_calm">Calm</string>
 </resources>

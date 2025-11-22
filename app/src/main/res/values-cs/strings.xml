@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ai_citaty_aplikace</string>
+    <string name="title_home">AI Citáty</string>
+    <string name="title_dashboard">Historie</string>
+    <string name="title_notifications">Nastavení</string>
+    <string name="text_generate">Generovat</string>
+    <string name="text_select_tone">Vyber náladu</string>
+    <string name="text_select_character">Vyber Postavu</string>
+    <string name="text_sad">Smutný</string>
+    <string name="text_happy">Veselý</string>
+    <string name="text_angry">Naštvaný</string>
+    <string name="text_calm">Klidný</string>
+
+</resources>

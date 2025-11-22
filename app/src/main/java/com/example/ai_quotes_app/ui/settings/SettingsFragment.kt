@@ -60,12 +60,14 @@ class NotificationsFragment : Fragment() {
     }
 }
 
+
 @Composable
 fun SettingsScreen(viewModel: QuotesViewModel) {
     val state by viewModel.state.collectAsState()
     var selectedLanguage by remember { mutableStateOf("English") }
     var selectedOrder by remember { mutableStateOf("Chronological") }
     var selectedTheme by remember { mutableStateOf("Dark") }
+    var selectedModel by remember { mutableStateOf("gpt-5-nano") }
 
     Column(
         modifier = Modifier
@@ -73,10 +75,9 @@ fun SettingsScreen(viewModel: QuotesViewModel) {
             .padding(horizontal = 16.dp, vertical = 12.dp)
     ) {
 
-
         Spacer(modifier = Modifier.height(24.dp))
 
-        //TODO LANGUAGE
+        // LANGUAGE
         SettingDropdown(
             title = "Language",
             value = selectedLanguage,
@@ -92,10 +93,7 @@ fun SettingsScreen(viewModel: QuotesViewModel) {
             value = state.sortType.toString(),
             options = listOf("Chronological", "Quote", "Prompt", "Character"),
             onChanged = { newValue ->
-
                 selectedOrder = newValue
-
-
                 val sortType = when (newValue) {
                     "Chronological" -> SortType.CHRONOLOGICAL
                     "Quote" -> SortType.QUOTE
@@ -103,7 +101,6 @@ fun SettingsScreen(viewModel: QuotesViewModel) {
                     "Character" -> SortType.CHARACTER
                     else -> SortType.QUOTE
                 }
-
                 viewModel.onEvent(QuoteEvent.SortQuotes(sortType))
             }
         )
@@ -117,8 +114,19 @@ fun SettingsScreen(viewModel: QuotesViewModel) {
             options = listOf("Dark", "Light", "System Default"),
             onChanged = { selectedTheme = it }
         )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        // ⭐ NEW: AI MODEL CHOICE
+        SettingDropdown(
+            title = "AI Model",
+            value = selectedModel,
+            options = listOf("gpt-5-nano", "gpt-4.1-mini", "gpt-4.1", "gpt-3.5-turbo"),
+            onChanged = { selectedModel = it }
+        )
     }
 }
+
 
 @Composable
 fun SettingDropdown(
