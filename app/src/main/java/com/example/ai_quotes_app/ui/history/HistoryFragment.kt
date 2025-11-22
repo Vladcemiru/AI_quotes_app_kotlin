@@ -1,4 +1,4 @@
-package com.example.ai_quotes_app.ui.dashboard
+package com.example.ai_quotes_app.ui.history
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.example.ai_quotes_app.ui.notifications
+package com.example.ai_quotes_app.ui.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,7 +19,7 @@ import com.example.ai_quotes_app.MainActivity
 import com.example.ai_quotes_app.data.QuoteEvent
 import com.example.ai_quotes_app.data.QuotesViewModel
 import com.example.ai_quotes_app.data.SortType
-import com.example.ai_quotes_app.ui.home.DarkColors   // stejné barvy jako ostatní views
+import com.example.ai_quotes_app.ui.home.DarkColors
 import kotlin.getValue
 
 class NotificationsFragment : Fragment() {
