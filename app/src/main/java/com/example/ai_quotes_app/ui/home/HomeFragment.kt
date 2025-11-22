@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
@@ -22,12 +23,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
@@ -41,6 +44,7 @@ import com.example.ai_quotes_app.data.QuoteEvent
 import com.example.ai_quotes_app.data.QuotesDatabase
 import com.example.ai_quotes_app.data.QuotesState
 import com.example.ai_quotes_app.data.QuotesViewModel
+import com.example.ai_quotes_app.R
 
 val DarkColors = darkColorScheme(
     background = Color(0xFF1B263B),
@@ -157,9 +161,32 @@ fun HeaderImages(    state: QuotesState,
     var showTone by remember { mutableStateOf(false) }
 
     val characterNames = listOf(
-        "Winston Churchill", "Gandhi", "Lucas", "Ethan", "Noah",
-        "James", "Liam", "Mason", "Logan", "Alexander"
+            "Winston Churchill", "Mahatma Gandhi", "Oscar Wilde", "Mark Twain", "Nelson Mandela",
+        "Friedrich Nietzsche", "Steve Jobs", "Erwin Rommel", "Napoleon Bonaparte", "Julius Caesar", "Theodore Roosevelt"
     )
+    val characterImages = mapOf(
+        "Winston Churchill" to R.drawable.churchill,
+        "Mahatma Gandhi" to R.drawable.gandhi,
+        "Erwin Rommel" to R.drawable.rommel,
+        "Oscar Wilde" to R.drawable.wilde,
+        "Mark Twain" to R.drawable.twain1,
+        "Nelson Mandela" to R.drawable.mandela ,
+        "Friedrich Nietzsche" to  R.drawable.nietzsche,
+        "Steve Jobs" to R.drawable.jobs,
+        "Erwin Rommel" to R.drawable.rommel,
+        "Napoleon Bonaparte" to R.drawable.napoleon,
+        "Julius Caesar" to R.drawable.cessar,
+        "Theodore Roosevelt" to R.drawable.roosvelt
+    )
+
+    val tonesImages = mapOf(
+        "Calm" to R.drawable.calm,
+        "Angry" to R.drawable.angry,
+        "Happy" to R.drawable.happy,
+        "Sad" to R.drawable.sad
+    )
+
+
 
     val toneOptions = listOf("Calm", "Angry", "Happy", "Sad")
 
@@ -175,32 +202,46 @@ fun HeaderImages(    state: QuotesState,
 
             // CHARACTER
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Icon(
-                    imageVector = Icons.Default.Person,
+
+                val characterImageRes = characterImages[state.character] ?: R.drawable.guesss
+
+                Image(
+                    painter =  painterResource(characterImageRes),
                     contentDescription = "Character",
                     modifier = Modifier
                         .size(80.dp)
+                        .clip(CircleShape)
                         .clickable {
                             showCharacter = !showCharacter
                             showTone = false
                         }
                 )
-                Text(text = if (state.character.isBlank()) "Choose Character" else state.character)
+                Text(text = if (state.character.isBlank()) "Choose Character" else state.character,
+                    modifier = Modifier.width(160.dp),
+                    textAlign = TextAlign.Center,
+                    maxLines = 1)
             }
 
             // TONE
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Icon(
-                    imageVector = Icons.Default.RecordVoiceOver,
+
+                val toneImageRes = tonesImages[tone] ?: R.drawable.tone
+
+                Image(
+                    painter =  painterResource(toneImageRes),
                     contentDescription = "Tone",
                     modifier = Modifier
                         .size(80.dp)
+                        .clip(CircleShape)
                         .clickable {
-                            showTone = !showTone
+                            showTone= !showTone
                             showCharacter = false
                         }
                 )
-                Text(text = if (tone.isBlank()) "Select Tone" else tone)
+                Text(text = if (tone.isBlank()) "Select Tone" else tone,
+                    modifier = Modifier.width(100.dp),
+                    textAlign = TextAlign.Center,
+                    maxLines = 1)
             }
         }
 
