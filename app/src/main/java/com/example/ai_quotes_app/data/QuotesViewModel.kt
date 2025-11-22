@@ -20,10 +20,11 @@ class QuotesViewModel(
 ): ViewModel() {
 
 
-    private val _sortType = MutableStateFlow(SortType.QUOTE)
+    private val _sortType = MutableStateFlow(SortType.CHRONOLOGICAL)
     private val _quotes = _sortType.
     flatMapLatest { sortType ->
         when(sortType) {
+        SortType.CHRONOLOGICAL -> dao.getQuotesOrderedByLast()
         SortType.CHARACTER -> dao.getQuotesOrderedByCharacter()
         SortType.PROMPT -> dao.getQuotesOrderedByPrompt()
         SortType.QUOTE -> dao.getQuotesOrderedByQuotes()

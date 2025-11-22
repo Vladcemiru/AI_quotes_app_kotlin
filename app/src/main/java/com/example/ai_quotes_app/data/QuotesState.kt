@@ -7,6 +7,6 @@ data class QuotesState (
             val quote: String = "",
             val prompt: String = "",
             val character: String = "",
-            val sortType: SortType = SortType.QUOTE,
+            val sortType: SortType = SortType.CHRONOLOGICAL,
             val isLoading: Boolean = false
 )

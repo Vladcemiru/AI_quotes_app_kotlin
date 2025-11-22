@@ -21,6 +21,8 @@ interface QuotesDao {
     @Query("SELECT * FROM Quotes ORDER BY prompt ASC")
     fun getQuotesOrderedByPrompt(): Flow<List<Quotes>>
 
+    @Query("SELECT * FROM Quotes ORDER BY id DESC")
+    fun getQuotesOrderedByLast(): Flow<List<Quotes>>
     @Query("SELECT * FROM Quotes ORDER BY character ASC")
     fun getQuotesOrderedByCharacter(): Flow<List<Quotes>>
 }
